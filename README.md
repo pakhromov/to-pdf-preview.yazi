@@ -66,6 +66,21 @@ mime = "text/html"
 run = 'to-pdf-preview -- pandoc "$1" -o "${OUTDIR}$(basename "$1" | sed "s/\.[^.]*$/.pdf/")"'
 ```
 
+## Preloading (optional)
+
+The plugin works without any preloader configuration, but you can add matching rules under `plugin.prepend_preloaders` to make it faster.
+Make sure to use the **same rules** as the previewers:
+
+```toml
+[[plugin.prepend_preloaders]]
+mime = "application/pdf"
+run = "to-pdf-preview"
+
+[[plugin.prepend_preloaders]]
+url = "*.docx"
+run = 'to-pdf-preview -- libreoffice --headless --convert-to pdf --outdir "$OUTDIR" "$1"'
+```
+
 ## Usage
 
 Scroll up/down in the preview pane to navigate pages.
